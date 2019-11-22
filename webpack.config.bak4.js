@@ -46,11 +46,6 @@ module.exports = {
 
     plugins: [
         new CleanWebpackPlugin(),
-        new webpack.DefinePlugin({
-            DEV: JSON.stringify('dev'),  // 'dev'这样写出错，会把dev作为变量使用 可以使用 "'dev'", 使用JSON.stringfy('dev')
-            FLAG: 'true',  // 布尔值可以
-            EXPRESSION : '1+1',  // 表达式
-        }),
         new CopyWebpackPlugin([{
             from: './doc',
             to: 'doc'
@@ -157,9 +152,14 @@ module.exports = {
         ]
     },
 
-    resolve: {
+    resolve:{
         modules: [path.resolve('node_modules')],
         extensions: ['.js', '.css', '.json', '.vue']
+        // mainFiles: []
+        // mainFields: ['style', 'main']   // 先找style，再找main
+        // alias:{ // 别名
+        //     bootstrap : 'bootstrap/dist/css/bootstrap.css'
+        // }
     },
 
     devServer: {

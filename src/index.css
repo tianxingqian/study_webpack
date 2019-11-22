@@ -1,5 +1,5 @@
 @import "./a.css";
 body{
     background-color: coral;
-    transform: rotate(45deg);
+    transform: rotate(-5deg);
 }

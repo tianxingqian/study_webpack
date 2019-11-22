@@ -10,9 +10,9 @@ let webpack = require('webpack')
 // webpack 是node写出来的，用node语法
 
 module.exports = {
-    mode: 'development',          // 模式  production \ development
+    mode: 'production',          // 模式  production \ development
     entry: {  // 入口
-        home: './src/index.js',
+        index: './src/index.js',
     },
 
     watch: true,    // 实时编译，生成实体文件
@@ -46,14 +46,9 @@ module.exports = {
 
     plugins: [
         new CleanWebpackPlugin(),
-        new webpack.DefinePlugin({
-            DEV: JSON.stringify('dev'),  // 'dev'这样写出错，会把dev作为变量使用 可以使用 "'dev'", 使用JSON.stringfy('dev')
-            FLAG: 'true',  // 布尔值可以
-            EXPRESSION : '1+1',  // 表达式
-        }),
         new CopyWebpackPlugin([{
             from: './doc',
-            to: 'doc'
+            to: './doc'
         }]),
         new HtmlWebpackPluging({
             template: './src/index.html',   // 引用文件的位置
@@ -62,8 +57,9 @@ module.exports = {
                 removeAttributeQuotes: true,   // 删除属性引号
                 // removeComments: true,           // 删除注释
                 collapseWhitespace: true,       // 单行
+
             },
-            chunks: ['home'],
+            chunks: ['index'],
             hash: true,
         }),
 
@@ -95,7 +91,7 @@ module.exports = {
                 use: {
                     loader: "url-loader",
                     options: {
-                        // limit: 100,
+                        limit: 100,
                         outputPath: '/img/',
                         publicPath: 'http://www.baidu.com'
                     }
@@ -155,11 +151,6 @@ module.exports = {
                 ]
             },
         ]
-    },
-
-    resolve: {
-        modules: [path.resolve('node_modules')],
-        extensions: ['.js', '.css', '.json', '.vue']
     },
 
     devServer: {
